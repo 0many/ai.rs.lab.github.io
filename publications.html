@@ -273,10 +273,18 @@
         window.scrollTo(0, 0);
       });
       
+      // URL에서 해시 즉시 제거 (스크롤 방지)
+      if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+      }
+      
       // 즉시 스크롤을 맨 위로
       window.scrollTo(0, 0);
       
       document.addEventListener('DOMContentLoaded', () => {
+        // 즉시 스크롤 방지
+        window.scrollTo(0, 0);
+        
         // 모든 섹션과 탭 가져오기
         const sections = document.querySelectorAll('section[id]');
         const tabs = document.querySelectorAll('.segmented-control a');
@@ -306,19 +314,11 @@
           });
         }
         
-        // URL에서 해시 제거 (스크롤 방지)
-        if (window.location.hash) {
-          history.replaceState(null, null, window.location.pathname);
-        }
-        
         // 초기 로드 - 스크롤 방지
         showSection('');
         
         // 페이지 로드 시 스크롤 위치를 맨 위로 고정
         window.scrollTo(0, 0);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-        }, 100);
         
         // 탭 클릭 이벤트
         tabs.forEach(tab => {
