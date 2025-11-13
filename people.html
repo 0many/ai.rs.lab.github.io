@@ -129,6 +129,19 @@
       }
     </script>
 <script>
+      // 페이지 로드 시 스크롤 자동 복원 방지
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      
+      // 페이지 로드 전에 스크롤 방지
+      window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+      });
+      
+      // 즉시 스크롤을 맨 위로
+      window.scrollTo(0, 0);
+      
       document.addEventListener('DOMContentLoaded', () => {
         // 모든 섹션과 탭 가져오기
         const sections = document.querySelectorAll('section[id]');
@@ -159,21 +172,33 @@
           });
         }
         
-        // 초기 로드
-        showSection(window.location.hash);
+        // URL에서 해시 제거 (스크롤 방지)
+        if (window.location.hash) {
+          history.replaceState(null, null, window.location.pathname);
+        }
+        
+        // 초기 로드 - 스크롤 방지
+        showSection('');
+        
+        // 페이지 로드 시 스크롤 위치를 맨 위로 고정
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 100);
         
         // 탭 클릭 이벤트
         tabs.forEach(tab => {
           tab.addEventListener('click', (e) => {
             e.preventDefault();
             const hash = tab.getAttribute('href');
-            window.location.hash = hash;
+            // 스크롤 없이 URL 해시만 변경
+            history.pushState(null, null, hash);
             showSection(hash);
           });
         });
         
         // 브라우저 뒤로가기/앞으로가기 지원
-        window.addEventListener('hashchange', () => {
+        window.addEventListener('popstate', () => {
           showSection(window.location.hash);
         });
       });
@@ -228,24 +253,146 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-[#101418] dark:text-background-light" oncontextmenu="return false;" ondragstart="return false;">
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<header class="sticky top-0 z-50 flex justify-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-<div class="flex items-end justify-between whitespace-nowrap px-4 sm:px-10 py-3 max-w-6xl w-full">
-<div class="flex items-end gap-2 text-primary dark:text-white">
+<header class="sticky top-0 z-50 flex justify-center bg-white/40 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="flex items-center justify-between px-4 sm:px-10 py-3 max-w-7xl w-full">
+<div class="flex items-center gap-2 text-primary dark:text-white">
 <img src="logo/그림3.png" alt="AI.RS Lab logo" class="h-16 w-auto object-contain" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
 </div>
-<div class="hidden md:flex flex-1 justify-end gap-8">
-<div class="flex items-end gap-9 mb-1">
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="index.html">Home</a>
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="research.html">Research</a>
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="professor.html">Professor</a>
-<a class="text-accent dark:text-accent text-base font-bold leading-normal" href="people.html">Members</a>
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="publications.html">Publications</a>
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="news.html">News</a>
-<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="contact.html">Contact</a>
+<!-- Desktop Navigation -->
+<nav class="hidden lg:block mega-menu-nav group relative" style="width: 900px;">
+<div style="display: grid; grid-template-columns: repeat(6, 150px);" id="main-nav">
+<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="index.html">Home</a>
+<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="research.html">Research</a>
+<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="professor.html">Professor</a>
+<a class="nav-link text-accent dark:text-accent text-xl font-bold leading-normal pt-2 pb-0 text-center" href="people.html">Members</a>
+<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="publications.html">Publications</a>
+<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="news.html">News</a>
 </div>
+<!-- Mega Menu Dropdown -->
+<div class="mega-dropdown absolute top-full mt-6 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="left: 0; width: 900px;">
+<div class="py-1">
+<div style="display: grid; grid-template-columns: repeat(6, 150px);">
+<!-- Home Column - Empty -->
+<div></div>
+<!-- Research Column - Empty -->
+<div></div>
+<!-- Professor Column -->
+<div class="flex flex-col items-center text-center">
+<a href="professor.html" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Professor</a>
+</div>
+<!-- Members Column -->
+<div class="flex flex-col items-center text-center">
+<a href="people.html#researchers" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Researchers</a>
+<a href="people.html#phd-students" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Ph.D. Course</a>
+<a href="people.html#masters-students" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">M.S. Course</a>
+<a href="people.html#undergrad-researchers" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Undergraduate Students</a>
+<a href="people.html#alumni" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Alumni</a>
+</div>
+<!-- Publications Column -->
+<div class="flex flex-col items-center text-center">
+<a href="publications.html#journal" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Journal</a>
+<a href="publications.html#patent" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Patent</a>
+</div>
+<!-- News Column - Empty -->
+<div></div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Mobile Menu Button -->
+<button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-10 h-10 text-[#101418] dark:text-white hover:text-accent dark:hover:text-accent transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Mobile Navigation -->
+<div id="mobile-menu" class="mobile-menu lg:hidden fixed inset-0 bg-black/50 z-50 opacity-0 invisible transition-all duration-300">
+<div class="mobile-menu-content fixed top-0 right-0 h-full w-80 bg-white dark:bg-background-dark shadow-2xl transform translate-x-full transition-transform duration-300">
+<div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+<span class="text-xl font-bold text-[#101418] dark:text-white">Menu</span>
+<button id="mobile-menu-close" class="flex items-center justify-center w-10 h-10 text-[#101418] dark:text-white hover:text-accent transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex flex-col p-6 gap-2">
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="index.html">Home</a>
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="research.html">Research</a>
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="professor.html">Professor</a>
+<div class="mobile-nav-group">
+<button class="mobile-nav-toggle w-full flex items-center justify-between text-accent dark:text-accent text-lg font-bold py-3 border-b border-gray-200 dark:border-gray-700">
+<span>Members</span>
+<span class="material-symbols-outlined transform transition-transform">expand_more</span>
+</button>
+<div class="mobile-submenu max-h-0 overflow-hidden transition-all duration-300">
+<a href="people.html#researchers" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Researchers</a>
+<a href="people.html#phd-students" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Ph.D. Course</a>
+<a href="people.html#masters-students" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">M.S. Course</a>
+<a href="people.html#undergrad-researchers" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Undergraduate Students</a>
+<a href="people.html#alumni" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Alumni</a>
+</div>
+</div>
+<div class="mobile-nav-group">
+<button class="mobile-nav-toggle w-full flex items-center justify-between text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700">
+<span>Publications</span>
+<span class="material-symbols-outlined transform transition-transform">expand_more</span>
+</button>
+<div class="mobile-submenu max-h-0 overflow-hidden transition-all duration-300">
+<a href="publications.html#journal" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Journal</a>
+<a href="publications.html#patent" class="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">Patent</a>
+</div>
+</div>
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="news.html">News</a>
+</nav>
 </div>
 </div>
 </header>
+<script>
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuContent = mobileMenu.querySelector('.mobile-menu-content');
+  
+  function openMobileMenu() {
+    mobileMenu.classList.remove('invisible', 'opacity-0');
+    setTimeout(() => {
+      mobileMenuContent.classList.remove('translate-x-full');
+    }, 10);
+  }
+  
+  function closeMobileMenu() {
+    mobileMenuContent.classList.add('translate-x-full');
+    setTimeout(() => {
+      mobileMenu.classList.add('invisible', 'opacity-0');
+    }, 300);
+  }
+  
+  mobileMenuBtn.addEventListener('click', openMobileMenu);
+  mobileMenuClose.addEventListener('click', closeMobileMenu);
+  mobileMenu.addEventListener('click', function(e) {
+    if (e.target === mobileMenu) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Mobile submenu toggles
+  const mobileNavToggles = document.querySelectorAll('.mobile-nav-toggle');
+  mobileNavToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const submenu = this.nextElementSibling;
+      const icon = this.querySelector('.material-symbols-outlined');
+      
+      if (submenu.style.maxHeight && submenu.style.maxHeight !== '0px') {
+        submenu.style.maxHeight = '0px';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+});
+</script>
 <div class="relative w-full overflow-hidden bg-gradient-to-b from-blue-100 to-white dark:from-primary-dark dark:to-background-dark" style="height: 385px;">
 <img alt="Space background" class="absolute inset-0 w-full h-full object-cover pointer-events-none" src="space/1.png"/>
 <div class="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
@@ -634,7 +781,7 @@ gu7529@pukyong.ac.kr
 <h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Alumni</h2>
 <div class="max-w-4xl mx-auto px-4">
 <div class="mb-12">
-<h3 class="text-2xl font-bold text-accent mb-2">ALUMNI (Ph.D. STUDENTS)</h3>
+<h3 class="text-2xl font-bold text-accent mb-2">ALUMNI (Ph.D.)</h3>
 <hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
 <ul class="space-y-3 text-lg font-semibold text-text-light dark:text-text-dark">
 <li class="flex items-center">
@@ -661,10 +808,11 @@ gu7529@pukyong.ac.kr
 <span class="mr-3">•</span>
 <span>안지혜(2023), 부경대학교</span>
 </li>
+</li>
 </ul>
 </div>
 <div class="mb-12">
-<h3 class="text-2xl font-bold text-accent mb-2">ALUMNI (M.S. STUDENTS)</h3>
+<h3 class="text-2xl font-bold text-accent mb-2">ALUMNI (M.S.)</h3>
 <hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
 <ul class="space-y-3 text-lg font-semibold text-text-light dark:text-text-dark">
 <li class="flex items-center">
@@ -677,7 +825,7 @@ gu7529@pukyong.ac.kr
 </li>
 <li class="flex items-center">
 <span class="mr-3">•</span>
-<span>김 구(2015), 국립환경과학원</span>
+<span>김  구(2015), 국립환경과학원</span>
 </li>
 <li class="flex items-center">
 <span class="mr-3">•</span>
