@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professor - ai.rs.lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#003366",
+              "background-light": "#f5f7f8",
+              "background-dark": "#0f1923",
+              "primary-dark": "#0a2342",
+              "secondary": "#5d737e",
+              "accent": "#00AEEF",
+              "card-light": "#ffffff",
+              "card-dark": "#1a2c3e",
+              "text-light": "#0f172a",
+              "text-dark": "#e2e8f0",
+              "text-muted-light": "#5d737e",
+              "text-muted-dark": "#94a3b8",
+            },
+            fontFamily: {
+              "display": ["Lexend", "Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      /* 이미지 보호 */
+      img {
+          pointer-events: none;
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+      }
+    </style>
+<script>
+      // 우클릭 방지 (이미지에만 적용)
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 드래그 방지
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 키보드 단축키로 저장 방지 (Ctrl+S)
+      document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 이미지에만 우클릭 방지
+      document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('contextmenu', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+          }
+        });
+        
+        document.addEventListener('dragstart', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+          }
+        });
+      });
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#101418] dark:text-background-light" oncontextmenu="return false;" ondragstart="return false;">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<header class="sticky top-0 z-50 flex justify-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="flex items-end justify-between whitespace-nowrap px-4 sm:px-10 py-3 max-w-6xl w-full">
+<div class="flex items-end gap-2 text-primary dark:text-white">
+<img src="logo/그림3.png" alt="AI.RS Lab logo" class="h-16 w-auto object-contain" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-end gap-9 mb-1">
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="index.html">Home</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="research.html">Research</a>
+<a class="text-accent dark:text-accent text-base font-bold leading-normal" href="professor.html">Professor</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="people.html">Members</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="publications.html">Publications</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="news.html">News</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="contact.html">Contact</a>
+</div>
+</div>
+</div>
+</header>
+<div class="relative w-full overflow-hidden bg-gradient-to-b from-blue-100 to-white dark:from-primary-dark dark:to-background-dark">
+<img alt="Space background" class="absolute inset-0 w-full h-full object-cover pointer-events-none" src="space/1.png"/>
+<div class="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
+<div class="relative z-10 flex flex-col items-center justify-center py-32">
+<div class="text-center px-4">
+<p class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.03em] text-white">Professor</p>
+</div>
+</div>
+</div>
+<main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 py-12">
+<div class="flex flex-col gap-12">
+<div class="flex-1">
+<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Principal Investigator</h2>
+<div class="max-w-4xl mx-auto">
+<p class="text-center text-gray-500 dark:text-gray-400">Professor information will be updated soon.</p>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-primary text-white">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2">
+<img src="logo/logo_white.png" alt="ai.rs.lab logo" class="h-20 w-auto" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
+<h4 class="mt-4 font-semibold tracking-wider uppercase">Address</h4>
+<p class="mt-2 text-sm text-gray-300">부산광역시 남구 용소로 45, 환경해양관(B14) 613호</p>
+<p class="mt-1 text-sm text-gray-300 whitespace-nowrap">Pukyong National University B14, Room 613, 45 Yongso-ro, Nam-gu, Busan 48513, Republic of Korea</p>
+<h4 class="mt-4 font-semibold tracking-wider uppercase">Contact</h4>
+<p class="mt-2 text-sm text-gray-300">modconfi@pknu.ac.kr</p>
+</div>
+<div></div>
+<div>
+<h4 class="font-semibold tracking-wider uppercase">Links</h4>
+<ul class="mt-4 space-y-2 text-sm">
+<li><a class="hover:text-accent transition-colors" href="research.html">Research</a></li>
+<li><a class="hover:text-accent transition-colors" href="publications.html">Publications</a></li>
+<li><a class="hover:text-accent transition-colors" href="people.html">Members</a></li>
+<li><a class="hover:text-accent transition-colors" href="#">University Page</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-8 border-t border-blue-800 pt-6 text-center text-sm text-gray-400">
+<p>© 2024 ai.rs.lab. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
+

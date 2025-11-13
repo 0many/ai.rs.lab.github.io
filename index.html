@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ai.rs.lab - Interpreting the Earth and Predicting the Future with AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#003366",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0f1923",
+                        "accent": "#00AEEF"
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+      /* 이미지 보호 */
+      img {
+          pointer-events: none;
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+      }
+    </style>
+<script>
+      // 우클릭 방지 (이미지에만 적용)
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 드래그 방지
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 키보드 단축키로 저장 방지 (Ctrl+S)
+      document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // 이미지에만 우클릭 방지
+      document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('contextmenu', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+          }
+        });
+        
+        document.addEventListener('dragstart', function(e) {
+          if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+          }
+        });
+      });
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#101418] dark:text-background-light" oncontextmenu="return false;" ondragstart="return false;">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-50 flex justify-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+<div class="flex items-end justify-between whitespace-nowrap px-4 sm:px-10 py-3 max-w-6xl w-full">
+<div class="flex items-end gap-2 text-primary dark:text-white">
+<img src="logo/그림3.png" alt="AI.RS Lab logo" class="h-16 w-auto object-contain" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-end gap-9 mb-1">
+<a class="text-accent dark:text-accent text-base font-bold leading-normal" href="index.html">Home</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="research.html">Research</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="professor.html">Professor</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="people.html">Members</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="publications.html">Publications</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="news.html">News</a>
+<a class="text-[#101418] dark:text-white text-base font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors" href="contact.html">Contact</a>
+</div>
+</div>
+</div>
+</header>
+<main class="flex flex-col items-center">
+<div class="w-full">
+<div class="@container">
+<div class="flex min-h-[480px] lg:min-h-[600px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-center justify-center p-4 text-center" data-alt="Satellite image of Earth from space with glowing data points" style='background-image: linear-gradient(rgba(0, 20, 40, 0.4) 0%, rgba(0, 51, 102, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAF9kgyC6ga3LsgT18d595AskEq6lowJKAB7kOD2K1xvWXt1esl7U5AVT5Qf72xVjLWJadArs46xXCkPByen_pKJnN2vyBYfgVk77x0p0ClppVE_vO2mbH1wAy0hGFncXl8ScD2OX93GkoovqEieGxnnRijnZmNx-EPczod20pp6r801rSameeRI2Kgej9PgUFj-iL4OoN0X2JvrSNya-_Lm4vc2GIx_aQy0Mejvf5x1AuwjYza-Oe-_lOl_J2HnanH9QhCy8fGK5o");'>
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-6xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">ai.rs.lab</h1>
+<h2 class="text-white text-base font-normal leading-normal @[480px]:text-lg @[480px]:font-normal @[480px]:leading-normal max-w-2xl">Interpreting the Earth and Predicting the Future with AI.</h2>
+<div class="flex-wrap gap-3 flex justify-center mt-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-accent text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors">
+<span class="truncate">Our Research</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-background-light/90 dark:bg-background-dark/80 text-[#101418] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-100 dark:hover:bg-opacity-100 transition-colors">
+<span class="truncate">Contact Us</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="layout-content-container flex flex-col max-w-6xl w-full flex-1 px-4 py-10 sm:px-6 md:px-8 md:py-16">
+<section>
+<h2 class="text-[#101418] dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] pb-3 pt-5 text-center">Research Areas</h2>
+<p class="text-center text-gray-500 dark:text-gray-400 mb-8 max-w-3xl mx-auto">We are focused on developing cutting-edge AI technologies to analyze geospatial data, enhancing our understanding of the planet and enabling predictive capabilities for a sustainable future.</p>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex-col hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">public</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#101418] dark:text-white text-lg font-bold leading-tight">AI for Geospatial Intelligence</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Developing advanced AI models to extract actionable intelligence from satellite imagery, enabling smarter decision-making in various sectors.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex-col hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">fullscreen</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#101418] dark:text-white text-lg font-bold leading-tight">Satellite Image Super-Resolution</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Enhancing the resolution and quality of satellite images using deep learning techniques, unlocking new levels of detail and analysis.</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 flex-col hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">eco</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-[#101418] dark:text-white text-lg font-bold leading-tight">Environmental Monitoring</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Utilizing AI to monitor environmental changes, from deforestation and climate impact to urban sprawl and agricultural trends.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-16">
+<h2 class="text-[#101418] dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] pb-3 pt-5 text-center">Latest Research Highlights</h2>
+<p class="text-center text-gray-500 dark:text-gray-400 mb-8 max-w-3xl mx-auto">Discover our latest publications and contributions to the field of AI and remote sensing.</p>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="flex flex-col overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group">
+<img class="h-48 w-full object-cover" data-alt="Visualization of neural network connections over a satellite map background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfiCfjTmzgOF43mnXsDPVFssgAgIOokNA3S_gKG5y5WtHWXqLxilDZa-gDPZkgQ9q1ayvLgCog-zTpM3m7SRGfQ7Ul7qQQQT2m54u79H-4e-Wew2xaUOdfqwsX7IrPrWH0yv3zWONRb_rHIep5xZOSfXJjPyVQIqK-R1fftMOZqpVRFzZtFWAw3cWt-tCMde8F-azEq4hhR5CLwiVDt0sv-TEo4OIqZpSnlakRyo7W6ZQrpBDDD6j64eut0a5CyU9wVa-EqVDChPs"/>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-[#101418] dark:text-white">Self-Supervised Learning for Change Detection</h3>
+<p class="mt-2 text-sm text-gray-500 dark:text-gray-400 flex-1">A novel framework for detecting changes in satellite imagery without labeled data, improving scalability and efficiency.</p>
+<a class="mt-4 text-sm font-bold text-accent group-hover:underline" href="#">Read More →</a>
+</div>
+</div>
+<div class="flex flex-col overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group">
+<img class="h-48 w-full object-cover" data-alt="Abstract 3D rendering of complex data structures and nodes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHfgHMKnWWsv6_11FCJDt9CUe8JL47eJ4XbKUIa1As5LGoq9DbS491zyGD4YLwCbs5uRoOmkmiNS0elk-PUC7uJaBbhvma6AxlgywFLtmaxpzh4O-_5LncUzFA6qbC6q_TKHXMc-FSlmIivar4KohbMcPECMKHq75RLdzHNN4gc3uDcqFHuFVvmWRj5HqjeiX49rUx-tSF9TYnKnF9D-gOHl8NR5Gemkpsw0Y9drPzU63hQDM3LzxNRCZpLaKcQKWr-oD1YhZgeAw"/>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-[#101418] dark:text-white">Generative Models for High-Resolution Synthesis</h3>
+<p class="mt-2 text-sm text-gray-500 dark:text-gray-400 flex-1">This paper introduces a diffusion-based model capable of generating photo-realistic high-resolution satellite imagery from low-resolution inputs.</p>
+<a class="mt-4 text-sm font-bold text-accent group-hover:underline" href="#">Read More →</a>
+</div>
+</div>
+<div class="flex flex-col overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group">
+<img class="h-48 w-full object-cover" data-alt="A combine harvester working in a vast agricultural field, seen from above" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaivgLNM_96CYL0qaG-_qiJZNkMY7npQ7mT6lVkGABbVIQ9SxUDIt1RsCV7KGpj4D_Hkwz8IuJmaqpCnE5emHSIKSNeSjHwvGgEWmSJnQp9QtFt-4BeFMZ6yQoCZdqz4Fj4Mx5iph7BSz8KHRthC51bG5_mcu8u-8-ywdbV-jH7SmL_LCS-aQEVC9ea9hgXcr4hUfKsdM96TbBnFQ13PpGgmHraIZZODVQGHQJANcwjnxv5IL39fteg_RqcmcEwSa2C-NKZ7lUIMA"/>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="text-lg font-bold text-[#101418] dark:text-white">AI-Powered Crop Yield Prediction</h3>
+<p class="mt-2 text-sm text-gray-500 dark:text-gray-400 flex-1">Leveraging multi-spectral satellite data and recurrent neural networks to accurately predict crop yields for food security monitoring.</p>
+<a class="mt-4 text-sm font-bold text-accent group-hover:underline" href="#">Read More →</a>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-16">
+<h2 class="text-[#101418] dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] pb-3 pt-5 text-center">News & Announcements</h2>
+<p class="text-center text-gray-500 dark:text-gray-400 mb-8 max-w-3xl mx-auto">Stay up to date with our lab's latest achievements, events, and milestones.</p>
+<div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+<ul class="divide-y divide-gray-200 dark:divide-gray-700">
+<li class="p-4 sm:p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<a class="flex flex-col sm:flex-row gap-2 sm:gap-4" href="#">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400 w-full sm:w-32 flex-shrink-0">October 26, 2023</p>
+<h3 class="font-semibold text-[#101418] dark:text-white">Paper accepted at NeurIPS 2023</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 sm:ml-auto flex-shrink-0">Read More</p>
+</a>
+</li>
+<li class="p-4 sm:p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<a class="flex flex-col sm:flex-row gap-2 sm:gap-4" href="#">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400 w-full sm:w-32 flex-shrink-0">September 15, 2023</p>
+<h3 class="font-semibold text-[#101418] dark:text-white">Dr. Lee awarded the prestigious "Future AI" grant</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 sm:ml-auto flex-shrink-0">Read More</p>
+</a>
+</li>
+<li class="p-4 sm:p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+<a class="flex flex-col sm:flex-row gap-2 sm:gap-4" href="#">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400 w-full sm:w-32 flex-shrink-0">August 01, 2023</p>
+<h3 class="font-semibold text-[#101418] dark:text-white">Welcoming new PhD students to the lab</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 sm:ml-auto flex-shrink-0">Read More</p>
+</a>
+</li>
+</ul>
+</div>
+</section>
+</div>
+</main>
+<footer class="bg-primary text-white">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2">
+<img src="logo/logo_white.png" alt="ai.rs.lab logo" class="h-20 w-auto" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
+<h4 class="mt-4 font-semibold tracking-wider uppercase">Address</h4>
+<p class="mt-2 text-sm text-gray-300">부산광역시 남구 용소로 45, 환경해양관(B14) 613호</p>
+<p class="mt-1 text-sm text-gray-300 whitespace-nowrap">Pukyong National University B14, Room 613, 45 Yongso-ro, Nam-gu, Busan 48513, Republic of Korea</p>
+<h4 class="mt-4 font-semibold tracking-wider uppercase">Contact</h4>
+<p class="mt-2 text-sm text-gray-300">modconfi@pknu.ac.kr</p>
+</div>
+<div></div>
+<div>
+<h4 class="font-semibold tracking-wider uppercase">Links</h4>
+<ul class="mt-4 space-y-2 text-sm">
+<li><a class="hover:text-accent transition-colors" href="research.html">Research</a></li>
+<li><a class="hover:text-accent transition-colors" href="publications.html">Publications</a></li>
+<li><a class="hover:text-accent transition-colors" href="people.html">Members</a></li>
+<li><a class="hover:text-accent transition-colors" href="#">University Page</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-8 border-t border-blue-800 pt-6 text-center text-sm text-gray-400">
+<p>© 2024 ai.rs.lab. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>
