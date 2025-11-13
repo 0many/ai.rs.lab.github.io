@@ -15,6 +15,91 @@
         'GRAD' 0,
         'opsz' 24
       }
+      
+      .segmented-control {
+          display: flex;
+          gap: 0.5rem;
+      }
+      
+      .segmented-control a {
+          flex: 1 1 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.5rem 1rem;
+          font-weight: 500;
+          font-size: 0.9375rem;
+          transition: all 0.2s ease-in-out;
+          color: #e2e8f0;
+          white-space: nowrap;
+          min-width: 0;
+      }
+      
+      .dark .segmented-control a {
+          color: #e2e8f0;
+      }
+      
+      .segmented-control a:first-child {
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+      }
+      
+      .segmented-control a:last-child {
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+      }
+      
+      .segmented-control a:hover {
+          color: #00AEEF;
+          z-index: 1;
+          position: relative;
+      }
+      
+      .dark .segmented-control a:hover {
+          color: #00AEEF;
+          z-index: 1;
+          position: relative;
+      }
+      
+      .segmented-control a.active {
+          color: #00AEEF;
+          box-shadow: none;
+          z-index: 2;
+          position: relative;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 2px;
+          text-decoration-color: #00AEEF;
+      }
+      
+      .dark .segmented-control a.active {
+          color: #00AEEF;
+          box-shadow: none;
+          text-decoration-color: #00AEEF;
+      }
+      
+      .segmented-control a.active .material-symbols-outlined {
+          font-variation-settings: 'FILL' 1;
+          color: #00AEEF;
+      }
+      
+      .dark .segmented-control a.active .material-symbols-outlined {
+          color: #00AEEF;
+      }
+      
+      /* 섹션 기본 숨김 처리 */
+      section[id] {
+          display: none;
+      }
+      
+      /* 이미지 보호 */
+      img {
+          pointer-events: none;
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+      }
     </style>
 <script id="tailwind-config">
       tailwind.config = {
@@ -43,41 +128,57 @@
         },
       }
     </script>
-<style>
-      /* 이미지 보호 */
-      img {
-          pointer-events: none;
-          user-select: none;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-      }
-    </style>
 <script>
-      // 우클릭 방지 (이미지에만 적용)
-      document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-          e.preventDefault();
-          return false;
+      document.addEventListener('DOMContentLoaded', () => {
+        // 모든 섹션과 탭 가져오기
+        const sections = document.querySelectorAll('section[id]');
+        const tabs = document.querySelectorAll('.segmented-control a');
+        
+        function showSection(hash) {
+          // 해시가 없으면 기본값으로 researchers 표시
+          const targetHash = hash || '#researchers';
+          
+          // 모든 섹션 숨기기
+          sections.forEach(section => {
+            section.style.display = 'none';
+          });
+          
+          // 선택된 섹션만 보이기
+          const targetSection = document.querySelector(targetHash);
+          if (targetSection) {
+            targetSection.style.display = 'block';
+          }
+          
+          // 탭 active 클래스 업데이트
+          tabs.forEach(tab => {
+            if (tab.getAttribute('href') === targetHash) {
+              tab.classList.add('active');
+            } else {
+              tab.classList.remove('active');
+            }
+          });
         }
+        
+        // 초기 로드
+        showSection(window.location.hash);
+        
+        // 탭 클릭 이벤트
+        tabs.forEach(tab => {
+          tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hash = tab.getAttribute('href');
+            window.location.hash = hash;
+            showSection(hash);
+          });
+        });
+        
+        // 브라우저 뒤로가기/앞으로가기 지원
+        window.addEventListener('hashchange', () => {
+          showSection(window.location.hash);
+        });
       });
-      
-      // 드래그 방지
-      document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // 키보드 단축키로 저장 방지 (Ctrl+S)
-      document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 's') {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
+    </script>
+<script>
       // 전체 페이지 우클릭 및 드래그 방지
       document.addEventListener('DOMContentLoaded', function() {
         // 우클릭 방지
@@ -145,10 +246,10 @@
 </div>
 </div>
 </header>
-<div class="relative w-full overflow-hidden bg-gradient-to-b from-blue-100 to-white dark:from-primary-dark dark:to-background-dark">
+<div class="relative w-full overflow-hidden bg-gradient-to-b from-blue-100 to-white dark:from-primary-dark dark:to-background-dark" style="height: 385px;">
 <img alt="Space background" class="absolute inset-0 w-full h-full object-cover pointer-events-none" src="space/1.png"/>
 <div class="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
-<div class="relative z-10 flex flex-col items-center justify-center py-32">
+<div class="relative z-10 flex flex-col items-center justify-center" style="height: 385px;">
 <div class="text-center px-4">
 <p class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.03em] text-white">Professor</p>
 </div>
@@ -157,9 +258,107 @@
 <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 py-12">
 <div class="flex flex-col gap-12">
 <div class="flex-1">
-<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Principal Investigator</h2>
-<div class="max-w-4xl mx-auto">
-<p class="text-center text-gray-500 dark:text-gray-400">Professor information will be updated soon.</p>
+<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Professor</h2>
+<div class="max-w-5xl mx-auto">
+<!-- Professor Info Card -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 px-10 py-1 shadow-sm mb-12">
+<div class="flex items-start gap-8 mb-8">
+<div class="relative w-44 h-52 flex-shrink-0 ml-2 mt-16">
+<img class="w-full h-full object-cover" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1);" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;" src="member/증명사진/교수님.jpg" alt="Professor Photo"/>
+</div>
+<div class="flex flex-col flex-grow mt-8 ml-4">
+<div class="mb-6">
+<h3 class="text-4xl font-bold text-primary-dark dark:text-white mb-2">Yangwon Lee</h3>
+<p class="text-xl font-semibold text-accent">Professor</p>
+</div>
+<div class="space-y-2">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-lg text-accent">business</span>
+<p class="font-semibold text-accent uppercase text-xs">OFFICE</p>
+</div>
+<p class="text-gray-700 dark:text-gray-300 text-sm">Pukyong National University B14, Room 613, 45 Yongso-ro, Nam-gu, Busan 48513, Republic of Korea</p>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-lg text-accent">mail</span>
+<p class="font-semibold text-accent uppercase text-xs">EMAIL</p>
+</div>
+<p class="text-gray-700 dark:text-gray-300 text-sm">modconfi@pknu.ac.kr</p>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-lg text-accent">call</span>
+<p class="font-semibold text-accent uppercase text-xs">TEL</p>
+</div>
+<p class="text-gray-700 dark:text-gray-300 text-sm">051-629-6660</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Professional History -->
+<div class="mt-12">
+<div>
+<h3 class="text-2xl font-bold text-accent mb-2">PROFESSIONAL HISTORY</h3>
+<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
+<ul class="space-y-4 text-gray-700 dark:text-gray-300">
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(2009.09~present)</strong> Professor in Geomatics Engineering, Pukyong National University</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(2009.09~)</strong> Associate Professor in Geomatics Engineering, Pukyong National University</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(2009.09~)</strong> Assistant Professor in Geomatics Engineering, Pukyong National University</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(2004.10~2009.09)</strong> Research Professor in Civil engineering, University of Tokyo</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(2003.02~2004.01)</strong> University of Wisconsin Visiting Researcher</span>
+</li>
+</ul>
+</div>
+
+<!-- Educational History -->
+<div class="mt-12">
+<h3 class="text-2xl font-bold text-accent mb-2">EDUCATIONAL HISTORY</h3>
+<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
+<ul class="space-y-4 text-gray-700 dark:text-gray-300">
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(test)</strong> Ph.D., Dept. of Remote Sensing, Seoul National University</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(test)</strong> M.S., Dept. of Remote Sensing, Seoul National University</span>
+</li>
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(test)</strong> B.S., Dept. of Remote Sensing, Seoul National University</span>
+</li>
+</ul>
+</div>
+
+<!-- Awards and Honors -->
+<div class="mt-12">
+<h3 class="text-2xl font-bold text-accent mb-2">AWARDS AND HONORS</h3>
+<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
+<ul class="space-y-4 text-gray-700 dark:text-gray-300">
+<li class="flex gap-2">
+<span class="text-black dark:text-white mt-1">•</span>
+<span><strong>(test)</strong> Award name</span>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
