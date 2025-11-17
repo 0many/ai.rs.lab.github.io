@@ -2,7 +2,7 @@
 <html class="" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Professor - ai.rs.lab</title>
+<title>About ai.rs - ai.rs.lab</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
@@ -18,8 +18,8 @@
       
       .segmented-control {
           display: flex;
-          gap: 0.5rem;
-      }
+          gap: 0.25rem;
+      } 
       
       .segmented-control a {
           flex: 1 1 0;
@@ -129,14 +129,27 @@
       }
     </script>
 <script>
+      // 페이지 로드 시 스크롤 자동 복원 방지
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      
+      // 페이지 로드 전에 스크롤 방지
+      window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+      });
+      
+      // 즉시 스크롤을 맨 위로
+      window.scrollTo(0, 0);
+      
       document.addEventListener('DOMContentLoaded', () => {
         // 모든 섹션과 탭 가져오기
         const sections = document.querySelectorAll('section[id]');
         const tabs = document.querySelectorAll('.segmented-control a');
         
         function showSection(hash) {
-          // 해시가 없으면 기본값으로 researchers 표시
-          const targetHash = hash || '#researchers';
+          // 해시가 없으면 기본값으로 about 표시
+          const targetHash = hash || '#about';
           
           // 모든 섹션 숨기기
           sections.forEach(section => {
@@ -157,28 +170,41 @@
               tab.classList.remove('active');
             }
           });
+          
+          // 스크롤 방지 - 페이지 상단 고정
+          window.scrollTo(0, 0);
+        }
+        
+        // URL에서 해시 제거 (스크롤 방지)
+        const currentHash = window.location.hash;
+        if (currentHash) {
+          // 해시만 제거하고 URL 업데이트
+          history.replaceState(null, null, window.location.pathname + window.location.search);
         }
         
         // 초기 로드
-        showSection(window.location.hash);
+        showSection(currentHash || '');
         
         // 탭 클릭 이벤트
         tabs.forEach(tab => {
           tab.addEventListener('click', (e) => {
             e.preventDefault();
             const hash = tab.getAttribute('href');
-            window.location.hash = hash;
+            
+            // URL 업데이트 (해시 포함)
+            history.pushState(null, null, hash);
+            
+            // 섹션 표시
             showSection(hash);
           });
         });
         
         // 브라우저 뒤로가기/앞으로가기 지원
-        window.addEventListener('hashchange', () => {
+        window.addEventListener('popstate', () => {
           showSection(window.location.hash);
         });
       });
-    </script>
-<script>
+      
       // 전체 페이지 우클릭 및 드래그 방지
       document.addEventListener('DOMContentLoaded', function() {
         // 우클릭 방지
@@ -236,9 +262,9 @@
 <!-- Desktop Navigation -->
 <nav class="hidden lg:block mega-menu-nav group relative flex-1 flex justify-start" style="max-width: 1200px;">
 <div style="display: grid; grid-template-columns: repeat(6, 1fr);" id="main-nav">
-<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="about.html">About ai.rs</a>
+<a class="nav-link text-accent dark:text-accent text-2xl font-bold leading-normal pt-2 pb-0 text-center" href="about.html">About ai.rs</a>
 <a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="research.html">Research</a>
-<a class="nav-link text-accent dark:text-accent text-2xl font-bold leading-normal pt-2 pb-0 text-center" href="professor.html">Professor</a>
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="professor.html">Professor</a>
 <a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="people.html">Members</a>
 <a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="publications.html">Publications</a>
 <a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="news.html">News</a>
@@ -294,9 +320,9 @@
 </button>
 </div>
 <nav class="flex flex-col p-6 gap-2">
-<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="about.html">About ai.rs</a>
+<a class="mobile-nav-link text-accent dark:text-accent text-lg font-bold py-3 border-b border-gray-200 dark:border-gray-700" href="about.html">About ai.rs</a>
 <a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="research.html">Research</a>
-<a class="mobile-nav-link text-accent dark:text-accent text-lg font-bold py-3 border-b border-gray-200 dark:border-gray-700" href="professor.html">Professor</a>
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="professor.html">Professor</a>
 <div class="mobile-nav-group">
 <button class="mobile-nav-toggle w-full flex items-center justify-between text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700">
 <span>Members</span>
@@ -376,117 +402,101 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="relative w-full overflow-hidden bg-gradient-to-b from-blue-100 to-white dark:from-primary-dark dark:to-background-dark" style="height: 385px;">
 <img alt="Space background" class="absolute inset-0 w-full h-full object-cover pointer-events-none" src="space/1.png"/>
 <div class="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
-<div class="relative z-10 flex flex-col items-center justify-center" style="height: 385px;">
+<div class="relative z-10 flex flex-col items-center justify-center" style="height: 328px;">
 <div class="text-center px-4">
-<p class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.03em] text-white">Professor</p>
+<p class="text-5xl md:text-6xl font-black leading-tight tracking-[-0.03em] text-white">About ai.rs</p>
+</div>
+</div>
+<div class="relative z-10 border-b border-gray-200 dark:border-gray-700 bg-black/60 dark:bg-black/60" style="height: 57px;">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+<nav aria-label="About Tabs" class="segmented-control flex justify-center max-w-5xl mx-auto w-full">
+<a class="group py-2.5" href="#about">About Us</a>
+<a class="group py-2.5" href="#contact">Contact</a>
+</nav>
 </div>
 </div>
 </div>
 <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 py-12">
 <div class="flex flex-col gap-12">
 <div class="flex-1">
-<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Professor</h2>
-<div class="max-w-5xl mx-auto">
-<!-- Professor Info Card -->
-<div class="bg-card-light dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-700 px-10 py-1 shadow-sm mb-12">
-<div class="flex items-start gap-8 mb-8">
-<div class="relative w-44 h-52 flex-shrink-0 ml-2 mt-16">
-<img class="w-full h-full object-cover" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1);" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;" src="member/증명사진/교수님.jpg" alt="Professor Photo"/>
-</div>
-<div class="flex flex-col flex-grow mt-8 ml-4">
-<div class="mb-6">
-<h3 class="text-4xl font-bold text-primary-dark dark:text-white mb-2">Yangwon Lee</h3>
-<p class="text-xl font-semibold text-accent">Professor</p>
-</div>
-<div class="space-y-2">
+<section id="about">
+<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">About Us</h2>
+<div class="max-w-4xl mx-auto">
+<p class="text-lg text-gray-700 dark:text-gray-300 mb-8 text-center">Interpreting the Earth and Predicting the Future with AI.</p>
+<div class="space-y-8">
 <div>
-<div class="flex items-center gap-2 mb-1">
+<h3 class="text-2xl font-bold text-accent mb-4">Research Areas</h3>
+<p class="text-gray-700 dark:text-gray-300 mb-6">We are focused on developing cutting-edge AI technologies to analyze geospatial data, enhancing our understanding of the planet and enabling predictive capabilities for a sustainable future.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">public</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-lg font-bold text-primary-dark dark:text-white">AI for Geospatial Intelligence</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400">Developing advanced AI models to extract actionable intelligence from satellite imagery, enabling smarter decision-making in various sectors.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">fullscreen</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-lg font-bold text-primary-dark dark:text-white">Satellite Image Super-Resolution</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400">Enhancing the resolution and quality of satellite images using deep learning techniques, unlocking new levels of detail and analysis.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 hover:shadow-lg hover:border-accent dark:hover:border-accent transition-all">
+<span class="material-symbols-outlined text-accent" style="font-size: 32px;">eco</span>
+<div class="flex flex-col gap-1">
+<h4 class="text-lg font-bold text-primary-dark dark:text-white">Environmental Monitoring</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400">Utilizing AI to monitor environmental changes, from deforestation and climate impact to urban sprawl and agricultural trends.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<h2 class="text-4xl font-bold leading-tight tracking-[-0.015em] text-center mb-16 text-primary-dark dark:text-white">Contact</h2>
+<div class="max-w-7xl mx-auto flex justify-center">
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 items-center">
+<div>
+<div class="space-y-8">
+<div>
+<div class="flex items-center gap-2 mb-3">
 <span class="material-symbols-outlined text-lg text-accent">business</span>
-<p class="font-semibold text-accent uppercase text-xs">OFFICE</p>
+<p class="font-semibold text-accent uppercase text-xl">Professor Office</p>
 </div>
-<p class="text-gray-700 dark:text-gray-300 text-sm">Pukyong National University B14, Room 613, 45 Yongso-ro, Nam-gu, Busan 48513, Republic of Korea</p>
+<div class="text-left ml-7">
+<p class="text-gray-700 dark:text-gray-300 mb-1">부산광역시 남구 용소로 45, 부경대학교 환경해양관(B14) 613호</p>
+<p class="text-gray-700 dark:text-gray-300">Pukyong National University B14, Room 613</p>
+</div>
 </div>
 <div>
-<div class="flex items-center gap-2 mb-1">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-lg text-accent">science</span>
+<p class="font-semibold text-accent uppercase text-xl">Laboratory</p>
+</div>
+<div class="text-left ml-7">
+<p class="text-gray-700 dark:text-gray-300 mb-1">부산광역시 남구 용소로 45, 부경대학교 환경해양관(B14) 614-1/616호</p>
+<p class="text-gray-700 dark:text-gray-300">Pukyong National University B14, Room 614-1/616</p>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-3">
 <span class="material-symbols-outlined text-lg text-accent">mail</span>
-<p class="font-semibold text-accent uppercase text-xs">EMAIL</p>
+<p class="font-semibold text-accent uppercase text-xl">EMAIL</p>
 </div>
-<p class="text-gray-700 dark:text-gray-300 text-sm">modconfi@pknu.ac.kr</p>
-</div>
-<div>
-<div class="flex items-center gap-2 mb-1">
-<span class="material-symbols-outlined text-lg text-accent">call</span>
-<p class="font-semibold text-accent uppercase text-xs">TEL</p>
-</div>
-<p class="text-gray-700 dark:text-gray-300 text-sm">051-629-6660</p>
+<div class="text-left ml-7">
+<a href="mailto:modconfi@pknu.ac.kr" class="text-gray-700 dark:text-gray-300 hover:text-accent transition-colors">modconfi@pknu.ac.kr</a>
 </div>
 </div>
 </div>
 </div>
-</div>
-
-<!-- Professional History -->
-<div class="mt-12">
-<div>
-<h3 class="text-2xl font-bold text-accent mb-2">PROFESSIONAL HISTORY</h3>
-<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
-<ul class="space-y-4 text-gray-700 dark:text-gray-300">
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(2009.09~present)</strong> Professor in Geomatics Engineering, Pukyong National University</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(2009.09~)</strong> Associate Professor in Geomatics Engineering, Pukyong National University</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(2009.09~)</strong> Assistant Professor in Geomatics Engineering, Pukyong National University</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(2004.10~2009.09)</strong> Research Professor in Civil engineering, University of Tokyo</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(2003.02~2004.01)</strong> University of Wisconsin Visiting Researcher</span>
-</li>
-</ul>
-</div>
-
-<!-- Educational History -->
-<div class="mt-12">
-<h3 class="text-2xl font-bold text-accent mb-2">EDUCATIONAL HISTORY</h3>
-<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
-<ul class="space-y-4 text-gray-700 dark:text-gray-300">
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(test)</strong> Ph.D., Dept. of Remote Sensing, Seoul National University</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(test)</strong> M.S., Dept. of Remote Sensing, Seoul National University</span>
-</li>
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(test)</strong> B.S., Dept. of Remote Sensing, Seoul National University</span>
-</li>
-</ul>
-</div>
-
-<!-- Awards and Honors -->
-<div class="mt-12">
-<h3 class="text-2xl font-bold text-accent mb-2">AWARDS AND HONORS</h3>
-<hr class="border-t-2 border-gray-300 dark:border-gray-600 mb-4"/>
-<ul class="space-y-4 text-gray-700 dark:text-gray-300">
-<li class="flex gap-2">
-<span class="text-black dark:text-white mt-1">•</span>
-<span><strong>(test)</strong> Award name</span>
-</li>
-</ul>
+<div class="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.865230698869!2d129.10359187621282!3d35.1350365597839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568ecfb0ca4754f%3A0x7c21a3f85a14b97d!2z67aA6rK964yA7ZWZ6rWQIO2ZmOqyve2VtOyWkeq0gA!5e0!3m2!1sko!2skr!4v1763369385329!5m2!1sko!2skr" width="100%" height="100%" style="border:0; min-height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 </div>
 </div>
+</section>
 </div>
 </div>
 </main>

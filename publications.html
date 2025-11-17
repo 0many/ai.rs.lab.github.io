@@ -521,26 +521,29 @@
 <body class="bg-background-light dark:bg-background-dark font-display text-[#101418] dark:text-background-light" oncontextmenu="return false;" ondragstart="return false;">
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
 <header class="sticky top-0 z-50 flex justify-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
-<div class="flex items-center justify-between px-4 sm:px-10 py-3 max-w-7xl w-full">
-<div class="flex items-center gap-2 text-primary dark:text-white">
-<img src="logo/lab_logo_orbitron_black.png" alt="AI.RS Lab logo" class="h-16 w-auto object-contain" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
-</div>
+<div class="flex items-center justify-between px-4 sm:px-6 py-3 w-full" style="max-width: 95%;">
+<a href="index.html" class="flex items-center gap-2 text-primary dark:text-white flex-shrink-0">
+<img src="logo/lab_logo_orbitron_black.png" alt="AI.RS Lab logo" class="h-20 w-auto object-contain" style="pointer-events: none; user-select: none; -webkit-user-select: none; -moz-user-select: none;" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;"/>
+</a>
 <!-- Desktop Navigation -->
-<nav class="hidden lg:block mega-menu-nav group relative" style="width: 900px;">
-<div style="display: grid; grid-template-columns: repeat(6, 150px);" id="main-nav">
-<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="index.html">Home</a>
-<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="research.html">Research</a>
-<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="professor.html">Professor</a>
-<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="people.html">Members</a>
-<a class="nav-link text-accent dark:text-accent text-xl font-bold leading-normal pt-2 pb-0 text-center" href="publications.html">Publications</a>
-<a class="nav-link text-[#101418] dark:text-white text-xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="news.html">News</a>
+<nav class="hidden lg:block mega-menu-nav group relative flex-1 flex justify-start" style="max-width: 1200px;">
+<div style="display: grid; grid-template-columns: repeat(6, 1fr);" id="main-nav">
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="about.html">About ai.rs</a>
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="research.html">Research</a>
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="professor.html">Professor</a>
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="people.html">Members</a>
+<a class="nav-link text-accent dark:text-accent text-2xl font-bold leading-normal pt-2 pb-0 text-center" href="publications.html">Publications</a>
+<a class="nav-link text-[#101418] dark:text-white text-2xl font-medium leading-normal hover:text-accent dark:hover:text-accent transition-colors pt-2 pb-0 text-center" href="news.html">News</a>
 </div>
 <!-- Mega Menu Dropdown -->
-<div class="mega-dropdown absolute top-full mt-6 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="left: 0; width: 900px;">
+<div class="mega-dropdown absolute top-full mt-6 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300" style="left: 50%; transform: translateX(-50%); width: 1200px;">
 <div class="py-1">
-<div style="display: grid; grid-template-columns: repeat(6, 150px);">
-<!-- Home Column - Empty -->
-<div></div>
+<div style="display: grid; grid-template-columns: repeat(6, 1fr);">
+<!-- About Column -->
+<div class="flex flex-col items-center text-center">
+<a href="about.html#about" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">About Us</a>
+<a href="about.html#contact" class="block py-2 text-sm text-[#101418] dark:text-white hover:text-accent transition-colors whitespace-nowrap">Contact</a>
+</div>
 <!-- Research Column - Empty -->
 <div></div>
 <!-- Professor Column -->
@@ -583,7 +586,7 @@
 </button>
 </div>
 <nav class="flex flex-col p-6 gap-2">
-<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="index.html">Home</a>
+<a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="about.html">About ai.rs</a>
 <a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="research.html">Research</a>
 <a class="mobile-nav-link text-[#101418] dark:text-white text-lg font-medium py-3 hover:text-accent transition-colors border-b border-gray-200 dark:border-gray-700" href="professor.html">Professor</a>
 <div class="mobile-nav-group">
