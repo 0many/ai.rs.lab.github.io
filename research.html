@@ -523,5 +523,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </footer>
 </div>
+<script>
+  // 드롭다운 메뉴 링크 클릭 시 빠르게 사라지게 하기
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdownLinks = document.querySelectorAll('.mega-dropdown a');
+    const dropdown = document.querySelector('.mega-dropdown');
+    const navbar = document.querySelector('.navbar.group');
+    
+    dropdownLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        if (dropdown) {
+          dropdown.style.transition = 'opacity 0.1s ease-in-out, visibility 0.1s ease-in-out';
+          dropdown.style.opacity = '0';
+          dropdown.style.visibility = 'hidden';
+        }
+      });
+    });
+  });
+</script>
 </body></html>
 
